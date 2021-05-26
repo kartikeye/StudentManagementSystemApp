@@ -1,0 +1,75 @@
+﻿@model StudentManagement.Data.StudentModel
+@Html.ValidationMessage("RollNumber")
+
+<ul class="page-header">
+    <li class="page-title">New Student</li>
+    <li class="page-action-button"><a href="/Account/StudentList">Back</a></li>
+    </ul>
+
+@using (Html.BeginForm("save-student", "Account", FormMethod.Post, new { @class = "form-signin", @id = "frmSignIn" }))
+{
+  
+<table class="grid-table" style="width:100%;margin-top:20px;">
+    <tr>
+        <td colspan="2">@Html.HiddenFor(s => s.StudentId)</td>
+    </tr>
+    <tr>
+        <td>First Name</td>
+        <td>@Html.TextBoxFor(s => s.FirstName)</td>
+    </tr>
+
+    <tr>
+        <td>Last Name</td>
+        <td>@Html.TextBoxFor(s => s.LastName)</td>
+    </tr>
+
+    <tr>
+        <td>Roll Number</td>
+        <td>@Html.TextBoxFor(s => s.RollNo)</td>
+    </tr>
+
+    <tr>
+        <td>Date Of Birth</td>
+        <td>@Html.TextBoxFor(s => s.DateOfBirth)</td>
+    </tr>
+
+    <tr>
+        <td>Address</td>
+        <td>@Html.TextBoxFor(s => s.Address)</td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td>@Html.DropDownListFor(s => s.GenderId, new SelectList(Model.Genders, "Value", "Text"))</td>
+    </tr>
+    <tr>
+        <td>Class</td>
+        <td>@Html.DropDownListFor(s => s.ClassId, new SelectList(Model.Classes, "Value", "Text"))</td>
+    </tr>
+    <tr>
+        <td>Section</td>
+        <td>@Html.DropDownListFor(s => s.SectionId, new SelectList(Model.Sections, "Value", "Text"))</td>
+    </tr>
+    <tr>
+        <td>Created By</td>
+        <td>@Html.TextBoxFor(s => s.CreateByUser)</td>
+        </tr>
+
+    <tr>
+        <td colspan="2" class="page-action-button">
+            <button type="submit">
+                Save Changes
+            </button>
+        </td>
+    </tr>
+    @if (ViewBag.flag == "roll number are same")
+    {
+        <tr>
+            <td>
+                Roll number cannot be same
+            </td>
+        </tr>
+    }
+
+
+</table>
+}

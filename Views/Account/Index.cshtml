@@ -1,0 +1,29 @@
+﻿@model StudentManagement.Data.UserModel;
+@Html.ValidationSummary()
+
+<h2>Log In Page</h2>
+
+
+@using (Html.BeginForm("LogIn","Account",FormMethod.Post, new { @class = "form-signin", @id = "frmSignIn" }))
+{
+<table class="log-in-table">
+    @*<tr>
+        <td colspan="2" >@Html.HiddenFor(m => m.UserId)</td>
+        </tr>
+    <tr>*@
+        <tr>
+        <th>User Name</th>
+        <th>@Html.TextBoxFor(m => m.UserName)</th>
+        </tr>
+    <tr>
+        <td>Password</td>
+        <td>@Html.TextBoxFor(m => m.Password)</td>
+        </tr>
+    <tr>
+        <td colspan="2">
+            <button type="submit">LogIn</button>
+            </td>
+        </tr>
+    
+    </table>
+}

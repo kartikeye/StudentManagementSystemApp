@@ -1,0 +1,41 @@
+﻿@model List<StudentManagement.Data.StudentModel>
+<table class="grid-table" style="width:100%;margin-top:20px;">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Roll Number</th>
+        <th>Date Of Birth</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Class</th>
+        <th>Section</th>
+        <th>Created by</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @{
+        foreach (var student in Model)
+        {
+        <tr>
+            <td>@student.FirstName</td>
+            <td>@student.LastName</td>
+            <td>@student.RollNo</td>
+            <td>@student.DateOfBirth</td>
+            <td>@student.Address</td>
+            <td>@student.Gender</td>
+            <td>@student.Class</td>
+            <td>@student.Section</td>
+            <td>@student.CreateByUser</td>
+            <td>
+                <a href="@Url.Action("Edit","Account",new { studentId = student.StudentId})">Edit</a>
+                </td>
+            <td>
+                <a href="javascript:void(0)" onclick="deleteStudent(@student.StudentId)">Delete</a>
+                </td>
+        </tr>
+            
+        }
+    }
+
+</table>
+

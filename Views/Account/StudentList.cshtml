@@ -1,0 +1,24 @@
+﻿@model List<StudentManagement.Data.StudentModel>
+
+<ul class="page-header">
+    <li class="page-title">Student List</li>
+    <li class="page-action-button"><a href="/account/new-student">Add New Student</a></li>
+    </ul>
+<script type="text/javascript">
+    function deleteStudent(studentId)
+    {
+        if (confirm("Are you sure you want to delete student")) {
+
+            var url = "/Account/DeleteAjax?studentId=" + studentId;
+
+            $.post(url, null, function (htmlData) {
+
+                $("#divStudentList").html(htmlData);
+
+            });
+        }
+    }
+</script>
+<div id="divStudentList">
+    @await Html.PartialAsync("~/Views/Account/_StudentList.cshtml",Model)
+    </div>
