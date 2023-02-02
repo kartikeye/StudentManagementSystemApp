@@ -93,7 +93,10 @@ namespace StudentManagementSystem
         public MappingProfile()
 
         {
-            CreateMap<Student, StudentModel>().ForMember(m => m.CreateByUser,o => o.MapFrom(s => getUserNameById(s.CreateBy))).ReverseMap();
+            CreateMap<Student, StudentModel>()              //first is the destination,then 
+                .ForMember(m => m.CreateByUser,             //o.mapfrom then source
+                o => o.MapFrom(s => getUserNameById(s.CreateBy)))
+                .ReverseMap();
         
         }
         private string getUserNameById(int userId)

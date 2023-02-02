@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StudentManagementSession.Service;
 
 namespace StudentManagementSystem.Controllers
 {
@@ -18,6 +19,7 @@ namespace StudentManagementSystem.Controllers
 
         UserAuthManagement _userAuth;
         StudentManagementLogic _studentManagement;
+        StudentSession _studentSession;
         
         
         
@@ -25,6 +27,7 @@ namespace StudentManagementSystem.Controllers
         {
             _userAuth = new UserAuthManagement();
             _studentManagement = new StudentManagementLogic(mapper);
+            _studentSession = new StudentSession();
         }
 
 
@@ -33,8 +36,7 @@ namespace StudentManagementSystem.Controllers
             
             UserModel model = new UserModel() { UserName = "Kartikeye", Password = "master" };
             {
-                //get the session value 
-                //tpContext.Session.GetString("SessionUser");
+                
                 return View("~/Views/Account/Index.cshtml",model);
             }
         }
@@ -50,8 +52,8 @@ namespace StudentManagementSystem.Controllers
 
             if (validUser!=null)
             {
-                _userAuth.setSession(validUser.UserId, HttpContext.Session);
-                //HttpContext.Session.SetString("userId", model.UserId.ToString());
+                _studentSession.setSession(validUser.UserId, HttpContext.Session);
+                
                 return RedirectToAction("StudentList","Account");
             }
             else
@@ -74,13 +76,14 @@ namespace StudentManagementSystem.Controllers
         [ActionName("new-student")]
         public IActionResult NewStudent()
         {
-            string userName = _userAuth.getUserNameFromSession(HttpContext.Session);
-            int userId = _userAuth.getSession(HttpContext.Session);
+            //getting the username and userId from the session--StudentManagementSystem.Service
+
+            string userName = _studentSession.getUserNameFromSession(HttpContext.Session);
+            int userId = _studentSession.getSession(HttpContext.Session);
 
 
             StudentModel model = new StudentModel() { CreateByUser=userName,CreateBy=userId};
-            //set the session
-            //ttext.Session.SetString("SessionUser",model.CreateByUser="ss");
+            
 
             
             return View("~/Views/Account/NewStudent.cshtml",model);
@@ -106,7 +109,7 @@ namespace StudentManagementSystem.Controllers
         {
             
 
-            int userId = _userAuth.getSession(HttpContext.Session);
+            int userId = _studentSession.getSession(HttpContext.Session);
 
             if (userId>0)
             {
